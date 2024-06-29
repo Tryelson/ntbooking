@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <input :class="variant" class="w-[300px] bg-transparent rounded-md px-[8px] py-[5px]" :placeholder="placeholder" :type="type" />
+    <input class="w-[400px] bg-transparent rounded-md px-[8px] py-[5px]" :placeholder="placeholder" :type="type" @input="handleChange" :value="value" :class="[variant, className]" />
 
     <div class="absolute right-[10px] w-[20px] h-[20px] top-[0] z-20">
       <IoSearchOutline color="white" />
@@ -9,10 +9,10 @@
 </template>
 
 <script lang="ts" setup>
-import {defineProps, type PropType} from 'vue'
+import {type PropType} from 'vue'
 import { IoSearchOutline  } from "vue3-icons/io5";
 
-const { placeholder, variant } = defineProps({
+const { placeholder, variant, onInput, value, className } = defineProps({
   placeholder: {
     required: false,
     type: String
@@ -20,14 +20,33 @@ const { placeholder, variant } = defineProps({
   variant: {
     default: 'primary',
     required: false,
-    type: String as PropType<'primary' | 'secondary'>,
+    type: String as PropType<'primary' | 'secondary' | 'search'>,
   },
   type: {
     default: 'text',
     required: false,
     type: String as PropType<'text' | 'date' | 'number'>,
+  },
+  className: {
+    default: '',
+    type: String,
+    required: false
+  },
+  onInput: {
+    type: Function as PropType<(event: Event) => void>,
+    required: false
+  },
+  value: {
+    type: String,
+    required: false
   }
 })
+
+function handleChange (event: Event) {
+  if(onInput){
+    onInput(event);
+  }
+}
 
 </script>
 

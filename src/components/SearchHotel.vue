@@ -31,7 +31,6 @@
       </div>
 
       <ButtonComponent variant="primary">Pesquisar</ButtonComponent>
-
     </div>
   </div>
 </template>

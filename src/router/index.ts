@@ -6,16 +6,15 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Home',
       component: HomeView
     },
+    {
+      path: '/hotel/:id',
+      name: 'Hotel',
+      component: () => import('../views/SingleHotelView.vue')
+    }
   ]
 })
 
 export default router
-
-// {
-//   path: '/about',
-//   name: 'about',
-//   component: () => import('../views/AboutView.vue')
-// }

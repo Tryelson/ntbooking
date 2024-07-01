@@ -1,18 +1,31 @@
 <script setup lang="ts">
-  import { CiLocationOn } from 'vue3-icons/ci';
-  import { CiStar } from "vue3-icons/ci";
-  import { LuHotel } from "vue3-icons/lu";
-  import { FaPeopleGroup } from "vue3-icons/fa6";
+import { CiLocationOn, CiStar } from 'vue3-icons/ci';
+import { LuHotel } from 'vue3-icons/lu';
+import { FaPeopleGroup } from 'vue3-icons/fa6';
+import { useComparisonStore } from '@/stores/comparison';
+import {computed, type PropType} from 'vue';
+import type { HotelType } from '@/types/hotel';
 
-  import type {PropType} from "vue";
-  import type {HotelType} from "@/types/hotel";
+const { hotel } = defineProps({
+  hotel: {
+    type: Object as PropType<HotelType>,
+    required: true,
+  },
+});
 
-  const { hotel } = defineProps({
-    hotel: {
-      type: Object as PropType<HotelType>,
-      required: true
-    }
-  })
+const isCompared = computed(() => {
+  return comparisonStore.comparisonList.some(h => h.id === hotel.id);
+});
+
+const comparisonStore = useComparisonStore();
+
+const toggleComparison = () => {
+  if (isCompared.value) {
+    comparisonStore.removeHotel(hotel?.id);
+  } else {
+    comparisonStore.addHotel(hotel);
+  }
+};
 
 </script>
 
@@ -47,5 +60,10 @@
         <span class="font-bold text-[20px]">{{ hotel.price }}</span>
       </div>
     </RouterLink>
+
+    <button @click="toggleComparison" :class="{ 'bg-blue-500': !isCompared, 'bg-gray-500': isCompared }" class="mt-2 p-2 text-white rounded">
+      <span v-if="!isCompared">Comparar</span>
+      <span v-else>Selecionado</span>
+    </button>
   </li>
 </template>

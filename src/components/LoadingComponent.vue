@@ -10,7 +10,7 @@ import { defineProps, computed } from 'vue';
 const props = defineProps({
   size: {
     type: String,
-    default: 'medium',
+    default: 'md',
     validator: (value: string) => ['sm', 'md', 'lg'].includes(value)
   }
 });

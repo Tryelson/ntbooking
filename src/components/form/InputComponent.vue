@@ -1,18 +1,18 @@
 <template>
-  <div class="relative">
-    <input class="w-[400px] bg-transparent rounded-md px-[8px] py-[5px]" :placeholder="placeholder" :type="type" @input="handleChange" :value="value" :class="[variant, className]" />
-
-    <div class="absolute right-[10px] w-[20px] h-[20px] top-[0] z-20">
-      <IoSearchOutline color="white" />
-    </div>
-  </div>
+    <input
+        class="bg-transparent rounded-md px-[8px] py-[5px]"
+        :placeholder="placeholder"
+        :type="type"
+        @input="handleChange"
+        :value="modelValue"
+        :class="[variant, className]"
+    />
 </template>
 
 <script lang="ts" setup>
 import {type PropType} from 'vue'
-import { IoSearchOutline  } from "vue3-icons/io5";
 
-const { placeholder, variant, onInput, value, className } = defineProps({
+const { placeholder, variant, className } = defineProps({
   placeholder: {
     required: false,
     type: String
@@ -32,20 +32,16 @@ const { placeholder, variant, onInput, value, className } = defineProps({
     type: String,
     required: false
   },
-  onInput: {
-    type: Function as PropType<(event: Event) => void>,
-    required: false
-  },
-  value: {
+  modelValue: {
     type: String,
     required: false
   }
 })
 
-function handleChange (event: Event) {
-  if(onInput){
-    onInput(event);
-  }
+const emits = defineEmits(['update:modelValue'])
+
+function handleChange(event: Event) {
+  emits('update:modelValue', (event.target as HTMLInputElement).value)
 }
 
 </script>
@@ -72,11 +68,12 @@ function handleChange (event: Event) {
 }
 
 .secondary {
+  width: 100%;
   outline: unset;
-  color: gray;
   background-color: #f6f6f6;
   transition: all 0.2s ease-in-out;
   padding: 10px;
+  color: black;
 }
 
 .secondary::placeholder {

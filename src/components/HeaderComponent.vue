@@ -14,17 +14,9 @@ const router = useRouter();
 
 const menuItems = [
   {
-    url: '/',
-    text: 'Contato'
+    url: '/compare',
+    text: 'Comparar'
   },
-  {
-    url: '/',
-    text: 'Sobre'
-  },
-  {
-    url: '/',
-    text: 'Viagens'
-  }
 ]
 
 const searchText = ref('')
@@ -57,7 +49,7 @@ function navigateToHotel(hotelId: number){
 </script>
 
 <template>
-    <header class="flex items-center justify-between gap-[30px]">
+    <header class="header flex items-center justify-between gap-[30px]">
       <LogoBooking />
 
       <nav>
@@ -70,8 +62,8 @@ function navigateToHotel(hotelId: number){
         </ul>
       </nav>
 
-      <div class="flex flex-col gap-[15px] relative">
-        <InputComponent className="" placeholder="Buscar destino..." :onInput="handleSearch" />
+      <div class="wrapper flex flex-col gap-[15px] relative">
+        <InputComponent className="input-search" placeholder="Buscar destino..." :onInput="handleSearch" />
 
         <div v-if="searchText" class="absolute z-20 shadow-md top-[50px] w-full bg-white rounded-[8px] p-[15px] max-h-[500px] overflow-auto">
 
@@ -81,8 +73,8 @@ function navigateToHotel(hotelId: number){
 
           <LoadingComponent v-if="isLoading" size="sm" />
           <ul v-if="hotelFilteredList.length" class="flex flex-col gap-[15px]">
-            <li :key="hotel.id" @click="navigateToHotel(hotel.id)" v-for="hotel in hotelFilteredList" class="border-b-[2px] border-[#e3e1e1] p-[10px] cursor-pointer hover:bg-[#F3F3F3] transition-all hover:shadow-gray-400 hover:shadow-md">
-              <div class="flex gap-[10px]">
+            <li :key="hotel.id" @click="navigateToHotel(hotel.id)" v-for="hotel in hotelFilteredList" class="search-item border-b-[2px] border-[#e3e1e1] p-[10px] cursor-pointer hover:bg-[#F3F3F3] transition-all hover:shadow-gray-400 hover:shadow-md">
+              <div class="item-header flex gap-[10px]">
                 <img class="w-[120px] h-[120px] object-cover rounded-md" :src="hotel.imageSrc" :alt="hotel.name" />
                 <div class="flex flex-col gap-[5px] text-[#212121]">
                   <span class="font-bold text-[16px]">{{ hotel.name }}</span>
@@ -90,7 +82,7 @@ function navigateToHotel(hotelId: number){
                 </div>
               </div>
 
-              <div class="text-[#212121] flex justify-between gap-[3px] mt-[10px]">
+              <div class="text-[#212121] flex flex-wrap justify-between gap-[3px] mt-[10px]">
                 <div class="flex items-center gap-[5px]">
                   <span class="text-[20px]"><CiStar /></span>
                   <span class="whitespace-nowrap">{{ hotel.rate }} Reviews</span>
@@ -122,5 +114,29 @@ function navigateToHotel(hotelId: number){
     background-color: rgba(255, 255, 255, 0.35);
     transition: all 0.2s ease-in-out;
     backdrop-filter: blur(10px);
+  }
+
+  @media(max-width: 992px){
+    .header {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .wrapper{
+      width: 100%;
+    }
+
+    .input-search {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .item-header{
+      flex-direction: column;
+    }
+
+    .item-header img{
+      width: 100%;
+    }
   }
 </style>

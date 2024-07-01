@@ -1,6 +1,6 @@
 <template>
-  <footer class="bg-black flex justify-between items-center w-full h-[200px] p-[30px] pb-[10px]">
-    <div class="flex flex-col justify-between h-full">
+  <footer class="footer bg-black flex justify-between items-center w-full h-full min-h-[200px] p-[30px] pb-[10px]">
+    <div class="flex flex-col gap-[30px] justify-between h-full">
       <LogoBooking />
 
       <span class="text-white font-bold">&#169; 2024. All rights reserved.</span>
@@ -12,3 +12,15 @@
 <script setup lang="ts">
 import LogoBooking from "@/components/LogoBooking.vue";
 </script>
+
+<style lang="css" scoped>
+
+@media(max-width: 992px){
+  .footer{
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 30px;
+  }
+}
+
+</style>

@@ -36,7 +36,5 @@ onMounted(async () => {
     <LoadingComponent v-if="isLoading" />
     <PageError v-if="notFound" />
     <PageContent v-if="hotel" :hotel="hotel" />
-
-    <FooterComponent />
   </div>
 </template>

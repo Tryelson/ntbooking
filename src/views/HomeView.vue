@@ -5,7 +5,6 @@ import SearchHotel from "@/components/SearchHotel.vue";
 import HotelItem from "@/components/HotelItem.vue";
 import type { HotelType } from "@/types/hotel";
 
-import FooterComponent from "@/components/FooterComponent.vue";
 import { getAllHotels } from "@/api/hotels";
 import { onMounted, ref } from "vue";
 import LoadingComponent from "@/components/LoadingComponent.vue";
@@ -16,11 +15,24 @@ const filteredHotels = ref<Array<HotelType>>([]);
 const isError = ref(false);
 const isLoading = ref(true);
 
+const parsePrice = (price: string) => {
+  return parseFloat(price.replace('R$', '').replace('.', '').replace(',', '.'));
+};
+
+const parseReviews = (reviews: string) => {
+  return parseInt(reviews.replace(',', ''));
+};
+
 onMounted(async () => {
   isLoading.value = true;
 
   try {
-    hotelsList.value = await getAllHotels();
+    const hotels = await getAllHotels();
+    hotels.forEach(hotel => {
+      hotel.price = parsePrice(hotel.price as string);
+      hotel.reviews = parseReviews(hotel.reviews as string);
+    });
+    hotelsList.value = hotels;
     filteredHotels.value = hotelsList.value;
     isError.value = !hotelsList.value || hotelsList.value.length === 0;
   } catch {
@@ -41,6 +53,19 @@ const filterHotels = (filters: any) => {
 const resetHotels = () => {
   filteredHotels.value = hotelsList.value;
 };
+
+const sortHotels = (criteria: string) => {
+  if (criteria === 'price-asc') {
+    filteredHotels.value.sort((a, b) => (a.price as number) - (b.price as number));
+  } else if (criteria === 'price-desc') {
+    filteredHotels.value.sort((a, b) => (b.price as number) - (a.price as number));
+  } else if (criteria === 'reviews-asc') {
+    filteredHotels.value.sort((a, b) => (a.reviews as number) - (b.reviews as number));
+  } else if (criteria === 'reviews-desc') {
+    filteredHotels.value.sort((a, b) => (b.reviews as number) - (a.reviews as number));
+  }
+};
+
 </script>
 
 <template>
@@ -55,7 +80,20 @@ const resetHotels = () => {
     </div>
 
     <div class="p-[10px] my-[30px]">
-      <h2 class="text-[30px] font-bold text-black mb-[40px]">Top Hotels</h2>
+      <div class="flex items-center gap-[20px] mb-[40px]">
+        <h2 class="text-[30px] font-bold text-black">Top Hotels</h2>
+
+        <div>
+          <label for="sort" class="mr-2 font-bold">Ordenar por:</label>
+          <select id="sort" @change="(event: Event) => sortHotels((event.target as HTMLSelectElement).value)" class="p-2 border border-black rounded">
+            <option value="">Selecione</option>
+            <option value="price-asc">Menor Preço</option>
+            <option value="price-desc">Maior Preço</option>
+            <option value="reviews-asc">Menos Avaliados</option>
+            <option value="reviews-desc">Melhores Avaliações</option>
+          </select>
+        </div>
+      </div>
 
       <LoadingComponent v-if="isLoading" />
       <p v-if="isError" class="text-[22px] text-center text-black font-bold">Nenhum hotel encontrado :(</p>

@@ -5,8 +5,8 @@ export interface HotelType {
     description: string,
     imageSrc: string,
     rate: string,
-    reviews: string,
+    reviews: string | number,
     guests: number,
     rooms: number,
-    price: string
+    price: string | number
 }

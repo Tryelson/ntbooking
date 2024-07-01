@@ -5,7 +5,6 @@ import {useRoute} from 'vue-router'
 import {onMounted, ref} from "vue";
 import {getHotelById} from "@/api/hotels";
 import HeaderComponent from "@/components/HeaderComponent.vue";
-import FooterComponent from "@/components/FooterComponent.vue";
 import PageError from "@/components/single-hotel/PageError.vue";
 import PageContent from "@/components/single-hotel/PageContent.vue";
 import LoadingComponent from "@/components/LoadingComponent.vue";
@@ -33,7 +32,10 @@ onMounted(async () => {
       <HeaderComponent />
     </div>
 
-    <LoadingComponent v-if="isLoading" />
+    <div v-if="isLoading" class="h-[100vh]">
+      <LoadingComponent />
+    </div>
+
     <PageError v-if="notFound" />
     <PageContent v-if="hotel" :hotel="hotel" />
   </div>

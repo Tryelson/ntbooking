@@ -1,18 +1,18 @@
 <template>
-  <div class="relative">
-    <input :class="variant" class="w-[300px] bg-transparent rounded-md px-[8px] py-[5px]" :placeholder="placeholder" :type="type" />
-
-    <div class="absolute right-[10px] w-[20px] h-[20px] top-[0] z-20">
-      <IoSearchOutline color="white" />
-    </div>
-  </div>
+    <input
+        class="bg-transparent rounded-md px-[8px] py-[5px]"
+        :placeholder="placeholder"
+        :type="type"
+        @input="handleChange"
+        :value="modelValue"
+        :class="[variant, className]"
+    />
 </template>
 
 <script lang="ts" setup>
-import {defineProps, type PropType} from 'vue'
-import { IoSearchOutline  } from "vue3-icons/io5";
+import {type PropType} from 'vue'
 
-const { placeholder, variant } = defineProps({
+const { placeholder, variant, className } = defineProps({
   placeholder: {
     required: false,
     type: String
@@ -20,14 +20,29 @@ const { placeholder, variant } = defineProps({
   variant: {
     default: 'primary',
     required: false,
-    type: String as PropType<'primary' | 'secondary'>,
+    type: String as PropType<'primary' | 'secondary' | 'search'>,
   },
   type: {
     default: 'text',
     required: false,
     type: String as PropType<'text' | 'date' | 'number'>,
+  },
+  className: {
+    default: '',
+    type: String,
+    required: false
+  },
+  modelValue: {
+    type: String,
+    required: false
   }
 })
+
+const emits = defineEmits(['update:modelValue'])
+
+function handleChange(event: Event) {
+  emits('update:modelValue', (event.target as HTMLInputElement).value)
+}
 
 </script>
 
@@ -53,11 +68,12 @@ const { placeholder, variant } = defineProps({
 }
 
 .secondary {
+  width: 100%;
   outline: unset;
-  color: gray;
   background-color: #f6f6f6;
   transition: all 0.2s ease-in-out;
   padding: 10px;
+  color: black;
 }
 
 .secondary::placeholder {

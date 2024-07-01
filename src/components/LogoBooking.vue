@@ -1,5 +1,7 @@
 <template>
-  <img src="@/assets/ntbooking-logo.png" class="logo-styles w-[300px]" alt="NTBooking">
+  <RouterLink to="/">
+    <img src="@/assets/ntbooking-logo.png" class="logo-styles w-[300px]" alt="NTBooking">
+  </RouterLink>
 </template>
 
 <style lang="css" scoped>

@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import HomeView from './views/HomeView.vue';
+import 'vue3-toastify/dist/index.css';
+import PublicLayout from "@/layouts/PublicLayout.vue";
+
 </script>
 
 <template>
-  <HomeView />
+  <PublicLayout>
+    <RouterView :key="$route.fullPath"></RouterView>
+  </PublicLayout>
 </template>

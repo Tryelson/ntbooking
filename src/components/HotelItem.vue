@@ -27,6 +27,10 @@ const toggleComparison = () => {
   }
 };
 
+const formatPrice = (price: number) => {
+  return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price);
+};
+
 </script>
 
 <template>
@@ -57,7 +61,7 @@ const toggleComparison = () => {
           <span>{{ hotel.rooms }} Quartos</span>
         </div>
 
-        <span class="font-bold text-[20px]">{{ hotel.price }}</span>
+        <span class="font-bold text-[20px]">{{ formatPrice(hotel.price as number) }}</span>
       </div>
     </RouterLink>
 

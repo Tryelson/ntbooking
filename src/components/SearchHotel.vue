@@ -3,6 +3,7 @@ import { ref, computed, defineEmits } from 'vue';
 import InputComponent from "@/components/form/InputComponent.vue";
 import FormLabel from "@/components/form/FormLabel.vue";
 import ButtonComponent from "@/components/form/ButtonComponent.vue";
+import {toast} from "vue3-toastify";
 
 const emits = defineEmits(['search', 'reset']);
 
@@ -19,12 +20,14 @@ const isFormValid = computed(() => {
       filters.value.checkIn !== '' &&
       filters.value.checkOut !== '' &&
       filters.value.rooms !== '' &&
-      filters.value.guests !== '';
+      filters.value.guests !== ''
 });
 
 const emitSearch = () => {
-  if (isFormValid.value) {
+  if (isFormValid.value && new Date(filters.value.checkIn) <= new Date(filters.value.checkOut)) {
     emits('search', { ...filters.value });
+  } else {
+    toast.error("A data de check-in não pode ser maior que a data de check-out.", {theme: 'dark'});
   }
 };
 

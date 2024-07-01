@@ -1,39 +1,37 @@
-# nt-booking
+# NTBooking
 
-This template should help get you started developing with Vue 3 in Vite.
+Uma mini aplicação frontend sobre reserva de hotéis utilizando Vue 3, Typescript e tailwind + css para estilização.
+Com funcionalidades de Pesquisar, comparar e reservar hotéis.
 
-## Recommended IDE Setup
+## Requisição
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+O projeto foi desenvolvido sem a disponibilidade de um backend, então tudo foi feito com
+dados mockados simulando uma requisição ali de API/endpoint e também usando um pouco
+de gerenciamento de estado global utilizando o **Pinia**.
 
-## Type Support for `.vue` Imports in TS
+No caminho `.../src/api/hotels.ts` é onde foi estruturado as funções para simular as requisições.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Pinia
 
-## Customize configuration
+Utilizei o Pinia para fazer o gerenciamento de estado global das funcionalidades `reservas` e `comparação`
+de hotéis. 
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+No caminho `.../src/stores/reservation.ts` e `.../src/stores/comparison.ts`.
 
-## Project Setup
+## Setup do Projeto
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Compilar e executar projeto em localhost
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Build para produção
 
 ```sh
 npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```

@@ -14,7 +14,6 @@ const cvv = ref('');
 const checkIn = ref('');
 const checkOut = ref('');
 
-
 const isFormValid = computed(() => {
   return name.value !== '' && email.value !== '' && cardNumber.value !== '' && cvv.value !== '' && checkIn.value !== '' && checkOut.value !== '';
 });

@@ -11,9 +11,12 @@ const name = ref('');
 const email = ref('');
 const cardNumber = ref('');
 const cvv = ref('');
+const checkIn = ref('');
+const checkOut = ref('');
+
 
 const isFormValid = computed(() => {
-  return name.value !== '' && email.value !== '' && cardNumber.value !== '' && cvv.value !== '';
+  return name.value !== '' && email.value !== '' && cardNumber.value !== '' && cvv.value !== '' && checkIn.value !== '' && checkOut.value !== '';
 });
 
 const submitForm = () => {
@@ -41,6 +44,16 @@ const submitForm = () => {
       <div class="form-group">
         <FormLabel>E-mail para contato</FormLabel>
         <InputComponent v-model="email" placeholder="jondoe@email.com" type="text" variant="secondary" />
+      </div>
+
+      <div class="form-group">
+        <FormLabel>Check-in</FormLabel>
+        <InputComponent v-model="checkIn" placeholder="Jon Doe" type="date" variant="secondary" />
+      </div>
+
+      <div class="form-group">
+        <FormLabel>Check-out</FormLabel>
+        <InputComponent v-model="checkOut" placeholder="jondoe@email.com" type="date" variant="secondary" />
       </div>
     </div>
 

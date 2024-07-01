@@ -34,7 +34,7 @@ function getStatusColor(status: String) {
         <span v-if="reservationStore.reservations.length" class="absolute top-0 right-0 w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center text-sm">{{ reservationStore.reservations.length }}</span>
       </div>
 
-      <div v-if="showReservations" class="fixed bottom-[120px] right-[30px] w-[300px] bg-white shadow-md p-[20px] rounded-lg">
+      <div v-if="showReservations" class="fixed z-50 bottom-[120px] right-[30px] w-[300px] bg-white shadow-md p-[20px] rounded-lg">
         <h3 class="mb-[20px] text-black text-[20px] font-bold overflow-auto max-h-[330px]">Reservas</h3>
 
         <ul v-if="reservationStore.reservations.length > 0">

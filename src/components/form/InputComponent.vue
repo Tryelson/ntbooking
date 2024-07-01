@@ -85,4 +85,8 @@ function handleChange(event: Event) {
   border-color: transparent;
 }
 
+.input-search {
+  width: 400px;
+}
+
 </style>

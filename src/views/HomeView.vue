@@ -5,7 +5,6 @@ import SearchHotel from "@/components/SearchHotel.vue";
 import HotelItem from "@/components/HotelItem.vue";
 import type { HotelType } from "@/types/hotel";
 
-import FooterComponent from "@/components/FooterComponent.vue";
 import { getAllHotels } from "@/api/hotels";
 import { onMounted, ref } from "vue";
 import LoadingComponent from "@/components/LoadingComponent.vue";
